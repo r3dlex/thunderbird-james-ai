@@ -1,0 +1,36 @@
+name: ADR Management
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "ADR action to perform"
+        required: true
+        type: choice
+        options:
+          - list
+          - validate
+
+jobs:
+  adr:
+    name: ADR ${{ github.event.inputs.action }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install Python dependencies
+        run: cd tools/pipeline_runner && poetry install --no-interaction
+
+      - name: Run ADR pipeline
+        run: cd tools/pipeline_runner && poetry run pipeline-runner adr

@@ -1,0 +1,109 @@
+{
+  "extensionName": {
+    "message": "Corvus AI",
+    "description": "Name der Erweiterung"
+  },
+  "extensionDescription": {
+    "message": "KI-gestuetzter E-Mail-Assistent mit Multi-Provider-Unterstuetzung",
+    "description": "Beschreibung der Erweiterung"
+  },
+  "tabChat": {
+    "message": "Chat",
+    "description": "Beschriftung fuer den kontextbezogenen Chat-Tab"
+  },
+  "tabAssistant": {
+    "message": "Assistent",
+    "description": "Beschriftung fuer den allgemeinen Assistenten-Tab"
+  },
+  "settingsTitle": {
+    "message": "Einstellungen",
+    "description": "Titel der Einstellungsseite"
+  },
+  "providerAnthropic": {
+    "message": "Anthropic (Claude)",
+    "description": "Anthropic-Anbietername"
+  },
+  "providerOpenAI": {
+    "message": "OpenAI",
+    "description": "OpenAI-Anbietername"
+  },
+  "providerGemini": {
+    "message": "Google Gemini",
+    "description": "Google Gemini-Anbietername"
+  },
+  "providerMiniMax": {
+    "message": "MiniMax",
+    "description": "MiniMax-Anbietername"
+  },
+  "apiKeyPlaceholder": {
+    "message": "API-Schluessel eingeben",
+    "description": "Platzhalter fuer API-Schluessel-Eingabe"
+  },
+  "testConnection": {
+    "message": "Verbindung testen",
+    "description": "Schaltflaeche zum Testen der Verbindung"
+  },
+  "connectionSuccess": {
+    "message": "Verbindung erfolgreich",
+    "description": "Wird bei erfolgreicher Verbindung angezeigt"
+  },
+  "connectionFailed": {
+    "message": "Verbindung fehlgeschlagen",
+    "description": "Wird bei fehlgeschlagener Verbindung angezeigt"
+  },
+  "chatPlaceholder": {
+    "message": "Nachricht eingeben...",
+    "description": "Platzhalter fuer Chat-Eingabe"
+  },
+  "errorNetwork": {
+    "message": "Verbindung fehlgeschlagen. Pruefen Sie Ihre Netzwerkverbindung.",
+    "description": "Wird bei Netzwerkfehler angezeigt"
+  },
+  "errorAuth": {
+    "message": "Ungueltiger API-Schluessel. Aktualisieren Sie ihn in den Einstellungen.",
+    "description": "Wird bei Authentifizierungsfehler angezeigt"
+  },
+  "errorRateLimit": {
+    "message": "Anfragelimit erreicht. Warte $SECONDS$ Sekunden...",
+    "description": "Wird bei Anfragelimit angezeigt",
+    "placeholders": {
+      "seconds": { "content": "$1", "example": "30" }
+    }
+  },
+  "confirmBatchMove": {
+    "message": "$COUNT$ E-Mails nach $FOLDER$ verschieben?",
+    "description": "Bestaetigung fuer Massenverschiebung",
+    "placeholders": {
+      "count": { "content": "$1", "example": "47" },
+      "folder": { "content": "$2", "example": "Archiv" }
+    }
+  },
+  "firstRunNotice": {
+    "message": "Corvus sendet E-Mail-Inhalte an die API Ihres ausgewaehlten KI-Anbieters, wenn Sie mit dem Assistenten interagieren. Es werden keine Daten anderweitig geteilt.",
+    "description": "Datenschutzhinweis beim ersten Start"
+  },
+  "passphrasePrompt": {
+    "message": "Geben Sie Ihre Corvus-Passphrase ein, um API-Schluessel zu entsperren",
+    "description": "Passphrase-Eingabeaufforderung"
+  },
+  "composeActionConcise": {
+    "message": "Kuerzer formulieren",
+    "description": "Verfassen-Schnellaktion"
+  },
+  "composeActionFormal": {
+    "message": "Formeller formulieren",
+    "description": "Verfassen-Schnellaktion"
+  },
+  "composeActionGrammar": {
+    "message": "Grammatik korrigieren",
+    "description": "Verfassen-Schnellaktion"
+  },
+  "composeActionTranslateEn": {
+    "message": "Ins Englische uebersetzen",
+    "description": "Verfassen-Schnellaktion"
+  },
+  "composeActionTranslateDe": {
+    "message": "Ins Deutsche uebersetzen",
+    "description": "Verfassen-Schnellaktion"
+  }
+}

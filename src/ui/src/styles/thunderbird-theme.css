@@ -1,0 +1,108 @@
+:root {
+  --corvus-bg: var(--layout-background-0, #ffffff);
+  --corvus-surface: var(--layout-background-1, #f5f5f5);
+  --corvus-surface-raised: var(--layout-background-2, #ebebeb);
+  --corvus-text: var(--layout-color-1, #1a1a1a);
+  --corvus-text-secondary: var(--layout-color-2, #666666);
+  --corvus-accent: var(--color-blue-50, #0060df);
+  --corvus-accent-hover: var(--color-blue-60, #0250bb);
+  --corvus-border: var(--layout-border-0, #e0e0e0);
+  --corvus-user-bubble: var(--color-blue-50, #0060df);
+  --corvus-ai-bubble: var(--layout-background-2, #ebebeb);
+  --corvus-error: var(--color-red-50, #d70022);
+  --corvus-success: var(--color-green-50, #058b00);
+  --corvus-radius: 8px;
+  --corvus-radius-sm: 4px;
+  --corvus-font: system-ui, -apple-system, sans-serif;
+  --corvus-font-mono: "SF Mono", "Fira Code", monospace;
+  --corvus-font-size: 13px;
+  --corvus-font-size-sm: 11px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --corvus-bg: var(--layout-background-0, #1c1b22);
+    --corvus-surface: var(--layout-background-1, #2b2a33);
+    --corvus-surface-raised: var(--layout-background-2, #38383d);
+    --corvus-text: var(--layout-color-1, #fbfbfe);
+    --corvus-text-secondary: var(--layout-color-2, #cfcfd8);
+    --corvus-border: var(--layout-border-0, #52525e);
+    --corvus-ai-bubble: var(--layout-background-2, #38383d);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 380px;
+  height: 500px;
+  overflow: hidden;
+  font-family: var(--corvus-font);
+  font-size: var(--corvus-font-size);
+  color: var(--corvus-text);
+  background: var(--corvus-bg);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--corvus-radius-sm);
+  padding: 6px 12px;
+  background: var(--corvus-accent);
+  color: #fff;
+  transition: background 0.15s;
+}
+
+button:hover {
+  background: var(--corvus-accent-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+button.secondary {
+  background: var(--corvus-surface);
+  color: var(--corvus-text);
+  border: 1px solid var(--corvus-border);
+}
+
+button.secondary:hover {
+  background: var(--corvus-surface-raised);
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 6px 10px;
+  border: 1px solid var(--corvus-border);
+  border-radius: var(--corvus-radius-sm);
+  background: var(--corvus-bg);
+  color: var(--corvus-text);
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--corvus-accent);
+}
+
+.scroll-area {
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: var(--corvus-border);
+  border-radius: 3px;
+}

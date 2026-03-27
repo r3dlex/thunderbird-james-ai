@@ -1,0 +1,112 @@
+{
+  "extensionName": {
+    "message": "Corvus AI",
+    "description": "Name of the extension"
+  },
+  "extensionDescription": {
+    "message": "AI-powered email assistant with multi-provider support",
+    "description": "Description of the extension"
+  },
+  "tabChat": {
+    "message": "Chat",
+    "description": "Label for the contextual chat tab"
+  },
+  "tabAssistant": {
+    "message": "Assistant",
+    "description": "Label for the general assistant tab"
+  },
+  "settingsTitle": {
+    "message": "Settings",
+    "description": "Settings page title"
+  },
+  "providerAnthropic": {
+    "message": "Anthropic (Claude)",
+    "description": "Anthropic provider name"
+  },
+  "providerOpenAI": {
+    "message": "OpenAI",
+    "description": "OpenAI provider name"
+  },
+  "providerGemini": {
+    "message": "Google Gemini",
+    "description": "Google Gemini provider name"
+  },
+  "providerMiniMax": {
+    "message": "MiniMax",
+    "description": "MiniMax provider name"
+  },
+  "apiKeyPlaceholder": {
+    "message": "Enter API key",
+    "description": "Placeholder for API key input"
+  },
+  "testConnection": {
+    "message": "Test Connection",
+    "description": "Button to test provider connection"
+  },
+  "connectionSuccess": {
+    "message": "Connection successful",
+    "description": "Shown when API key test succeeds"
+  },
+  "connectionFailed": {
+    "message": "Connection failed",
+    "description": "Shown when API key test fails"
+  },
+  "chatPlaceholder": {
+    "message": "Type a message...",
+    "description": "Placeholder for chat input"
+  },
+  "errorNetwork": {
+    "message": "Connection failed. Check your network.",
+    "description": "Shown on network failure"
+  },
+  "errorAuth": {
+    "message": "Invalid API key. Update it in Settings.",
+    "description": "Shown on authentication failure"
+  },
+  "errorRateLimit": {
+    "message": "Rate limited. Waiting $SECONDS$ seconds...",
+    "description": "Shown when rate limited",
+    "placeholders": {
+      "seconds": {
+        "content": "$1",
+        "example": "30"
+      }
+    }
+  },
+  "confirmBatchMove": {
+    "message": "Move $COUNT$ emails to $FOLDER$?",
+    "description": "Confirmation for batch move",
+    "placeholders": {
+      "count": { "content": "$1", "example": "47" },
+      "folder": { "content": "$2", "example": "Archive" }
+    }
+  },
+  "firstRunNotice": {
+    "message": "Corvus sends email content to your selected AI provider's API when you interact with the assistant. No data is shared otherwise.",
+    "description": "First-run privacy notice"
+  },
+  "passphrasePrompt": {
+    "message": "Enter your Corvus passphrase to unlock API keys",
+    "description": "Passphrase prompt for decryption"
+  },
+  "composeActionConcise": {
+    "message": "Make more concise",
+    "description": "Compose quick action"
+  },
+  "composeActionFormal": {
+    "message": "Make more formal",
+    "description": "Compose quick action"
+  },
+  "composeActionGrammar": {
+    "message": "Fix grammar",
+    "description": "Compose quick action"
+  },
+  "composeActionTranslateEn": {
+    "message": "Translate to English",
+    "description": "Compose quick action"
+  },
+  "composeActionTranslateDe": {
+    "message": "Translate to German",
+    "description": "Compose quick action"
+  }
+}
