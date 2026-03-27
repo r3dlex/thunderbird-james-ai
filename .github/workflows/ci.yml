@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - uses: actions/setup-python@v5
         with:
@@ -43,6 +44,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - uses: actions/setup-python@v5
         with:
@@ -79,6 +81,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
       - uses: actions/setup-python@v5
         with:
@@ -97,6 +100,7 @@ jobs:
         run: cd tools/pipeline_runner && poetry run pipeline-runner package
 
       - name: Upload XPI artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: corvus-xpi
