@@ -10,7 +10,6 @@ import {
   type AIStreamChunk,
   type AIToolDefinition,
   type AIToolCall,
-  type AIProviderConfig,
 } from "./base"
 
 interface AnthropicMessage {

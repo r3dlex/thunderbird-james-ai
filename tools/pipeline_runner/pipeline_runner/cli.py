@@ -5,11 +5,10 @@ from __future__ import annotations
 import argparse
 import sys
 
-from .runner import get_available_pipelines, run_pipeline
-from .utils import setup_logging
-
 # Importing pipelines registers them
 from . import pipelines  # noqa: F401
+from .runner import get_available_pipelines, run_pipeline
+from .utils import setup_logging
 
 
 def main() -> None:

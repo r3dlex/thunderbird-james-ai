@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from pipeline_runner.utils import run_command, get_project_root, StepResult
+from pipeline_runner.utils import StepResult, get_project_root, run_command
 
 
 def test_run_command_success() -> None:

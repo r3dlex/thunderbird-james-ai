@@ -5,7 +5,7 @@
 
 import { evaluateMessage } from "./rules/engine"
 import { setupRuleScheduler } from "./rules/scheduler"
-import { chat, streamChat, getActiveProvider } from "./ai/router"
+import { chat, streamChat } from "./ai/router"
 import { readMessage } from "./context/message-reader"
 import { buildThread, formatThreadForPrompt } from "./context/thread-builder"
 import { getAttachments } from "./context/attachment-reader"
@@ -19,7 +19,6 @@ import {
   setActiveProviderId,
   isFirstRunAcknowledged,
   acknowledgeFirstRun,
-  loadSettings,
 } from "./storage/settings"
 import { loadRules, addRule, updateRule, removeRule, toggleRule } from "./storage/rules-store"
 import { cacheStats, cacheClear } from "./storage/cache"

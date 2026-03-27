@@ -1,3 +1,3 @@
 """Pipeline definitions. Importing this module registers all pipelines."""
 
-from . import lint, test, build, package, adr  # noqa: F401
+from . import adr, build, lint, package, test  # noqa: F401

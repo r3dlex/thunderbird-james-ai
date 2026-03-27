@@ -153,12 +153,10 @@ export async function* streamChat(
     iterations++
 
     const pendingToolCalls: AIToolCall[] = []
-    let hasText = false
 
     try {
       for await (const chunk of provider.stream(conversationMessages, allTools)) {
         if (chunk.type === "text") {
-          hasText = true
           yield chunk
         } else if (chunk.type === "tool_call" && chunk.toolCall) {
           pendingToolCalls.push(chunk.toolCall)

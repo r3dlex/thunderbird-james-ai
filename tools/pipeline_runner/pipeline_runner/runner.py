@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import logging
 import sys
+from collections.abc import Callable
 from dataclasses import dataclass, field
+from typing import TypeVar
 
 from .utils import StepResult
 
@@ -36,13 +38,15 @@ class PipelineResult:
         return "\n".join(lines)
 
 
+F = TypeVar("F", bound=Callable[..., "PipelineResult"])
+
 # Registry of pipeline functions
-_PIPELINES: dict[str, object] = {}
+_PIPELINES: dict[str, Callable[[], PipelineResult]] = {}
 
 
-def register_pipeline(name: str):  # noqa: ANN201
+def register_pipeline(name: str) -> Callable[[F], F]:
     """Decorator to register a pipeline function."""
-    def decorator(func):  # noqa: ANN001, ANN202
+    def decorator(func: F) -> F:
         _PIPELINES[name] = func
         return func
     return decorator

@@ -66,7 +66,7 @@ async function processQueue(): Promise<void> {
         }
       }
       job.status = "completed"
-    } catch (err) {
+    } catch {
       job.status = "failed"
       job.result = {
         operation: job.operation,
