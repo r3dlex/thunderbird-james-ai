@@ -12,12 +12,21 @@ def run() -> PipelineResult:
     root = get_project_root()
     result = PipelineResult(pipeline_name="build")
 
-    # Install Node dependencies
+    # Install root Node dependencies
     result.steps.append(
         run_command(["npm", "ci"], cwd=root)
     )
     if not result.steps[-1].success:
         return result
+
+    # Install Angular UI dependencies
+    ui_dir = root / "src" / "ui"
+    if (ui_dir / "package.json").exists():
+        result.steps.append(
+            run_command(["npm", "install", "--no-audit"], cwd=ui_dir)
+        )
+        if not result.steps[-1].success:
+            return result
 
     # Build background script (webpack)
     result.steps.append(
@@ -25,7 +34,6 @@ def run() -> PipelineResult:
     )
 
     # Build Angular UI
-    ui_dir = root / "src" / "ui"
     if (ui_dir / "angular.json").exists():
         result.steps.append(
             run_command(

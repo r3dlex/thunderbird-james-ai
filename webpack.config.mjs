@@ -1,8 +1,10 @@
 import path from "path"
+import { fileURLToPath } from "url"
 import CopyWebpackPlugin from "copy-webpack-plugin"
-import type { Configuration } from "webpack"
 
-const config: Configuration = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+export default {
   entry: "./src/background/index.ts",
   output: {
     filename: "background.js",
@@ -32,5 +34,3 @@ const config: Configuration = {
   ],
   devtool: "source-map",
 }
-
-export default config
