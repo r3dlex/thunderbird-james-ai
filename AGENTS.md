@@ -25,16 +25,16 @@ This file defines agent personas and task delegation patterns for AI-assisted de
 **Scope**: `src/ui/`
 
 **Responsibilities**:
-- Angular components (chat, assistant, settings, compose views)
+- Vue feature pages (chat, assistant, settings, compose views)
 - Bridge service (runtime.sendMessage / runtime.Port communication)
 - Theme service (Thunderbird dark/light mode detection)
 - Streaming service (incremental AI response rendering)
-- Shared components (tab bar, provider selector, loading indicator)
-- Markdown rendering pipe (marked + DOMPurify)
+- Shared page registry / mount contract
+- Markdown rendering helpers (marked + DOMPurify)
 
 **Key constraints**:
-- AOT compilation only - no eval(), no Function(), no JIT
-- No localStorage/sessionStorage - state via Angular services + messenger.storage.local
+- No eval(), no Function(), no JIT
+- No localStorage/sessionStorage - state via Vue composables + messenger.storage.local
 - Popup targets 380x500px
 - 500KB budget warning threshold for entire UI bundle
 
@@ -46,7 +46,7 @@ This file defines agent personas and task delegation patterns for AI-assisted de
 - Python pipeline runner (lint, test, build, package, adr)
 - GitHub Actions workflows
 - ADR management via archgate
-- Build pipeline (webpack + Angular CLI + merge script)
+- Build pipeline (webpack + Vite + merge script)
 - Coverage gating and reporting
 
 **Key constraints**:
@@ -72,7 +72,7 @@ This file defines agent personas and task delegation patterns for AI-assisted de
 
 When working on a cross-cutting feature:
 1. Background Engineer implements the backend logic and message handler
-2. UI Engineer implements the Angular component and connects via bridge service
+2. UI Engineer implements the Vue page/component and connects via bridge service
 3. Both reference the relevant spec file for behavior details
 4. DevOps Engineer ensures tests and lint pass in CI
 

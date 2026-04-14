@@ -123,32 +123,29 @@ The UI uses Thunderbird's CSS custom properties for consistent theming:
 
 All colors must be specified exclusively via these custom properties -- no hardcoded hex values.
 
-## Angular Component Structure
+## Vue Component Structure
 
 ```
-AppComponent
-  TabBarComponent
-  RouterOutlet
-    ChatViewComponent
-      ContextCardComponent
-      MessageListComponent
-        MessageBubbleComponent
-      ChatInputComponent
-    AssistantViewComponent
-      MessageListComponent
-      ChatInputComponent
-    ComposeViewComponent
-      QuickActionCardComponent
-      CustomInstructionInputComponent
-      DraftPreviewComponent
-    SettingsViewComponent
-      ProviderCardComponent (x4)
-      ActiveProviderSelectorComponent
+App.vue
+  page-registry.ts
+    ChatWorkspace.vue
+      ContextCard.vue
+      MessageBubble.vue
+      ActionCards.vue
+      StreamingIndicator.vue
+    ComposePage.vue
+      composeQuickActions.ts
+      useComposeAssistant.ts
+    AssistantPage.vue
+      AssistantFilterRulesPanel.vue
+      AssistantBatchOpsPanel.vue
+      AssistantAutoReplyPanel.vue
+    SettingsPage.vue
+      SettingsProviderCard.vue
 ```
 
 ## Shared Components
 
-- **TabBarComponent**: Two-tab switcher with active indicator
-- **ProviderSelectorComponent**: Dropdown for model/provider selection
-- **LoadingIndicatorComponent**: Animated dots shown during AI streaming
-- **MarkdownPipe**: Transforms AI response text to sanitized HTML via `marked` and `DOMPurify`
+- **Page registry**: central map from `page` query values to mountable Vue page components
+- **Bridge/streaming lib**: typed `runtime.sendMessage` and `corvus-stream` wrappers shared by all Vue features
+- **Chat message components**: Markdown-safe message rendering, context card, action cards, and streaming indicator

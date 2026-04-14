@@ -5,7 +5,7 @@
 Corvus is a Thunderbird WebExtension (Manifest V3) with two isolated runtime contexts:
 
 1. **Background script** -- long-lived service worker handling AI, storage, rules, and mail API access
-2. **Angular UI** -- popup panels rendered via `action`, `message_display_action`, and `compose_action`
+2. **Vue UI** -- popup panels rendered via `action`, `message_display_action`, and `compose_action`
 
 Communication between the two is exclusively via `messenger.runtime.sendMessage()` for request/response and `messenger.runtime.Port` for streaming.
 
@@ -34,7 +34,7 @@ Communication between the two is exclusively via `messenger.runtime.sendMessage(
         runtime.sendMessage() / runtime.Port
                     |
 +-------------------v-------------------------------------------+
-|                      Angular UI                                |
+|                       Vue UI                                   |
 |                                                                |
 |  +----------+  +-----------+  +---------+  +----------+      |
 |  | Chat View|  | Assistant |  | Compose |  | Settings |      |
@@ -83,16 +83,13 @@ src/
       cache.ts            # Conversation and usage caching
   ui/
     src/
-      app/
-        services/         # Bridge, theme, streaming services
-        views/
-          chat/           # Contextual email chat (message_display_action)
-          assistant/      # General assistant (action popup)
-          compose/        # Compose assistant (compose_action)
-          settings/       # Provider configuration
-        shared/
-          components/     # Tab bar, provider selector, loading indicator
-          pipes/          # Markdown rendering pipe
+      features/
+        chat/             # Contextual email chat + message display flow
+        compose/          # Compose assistant feature
+        assistant/        # Assistant internal state feature
+        settings/         # Settings internal state feature
+      lib/                # Typed bridge/streaming contracts
+      composables/        # Query-param page authority and shared state helpers
       styles/             # Global styles, Thunderbird theme variables
   types/
     thunderbird.d.ts      # messenger.* API type declarations
@@ -111,12 +108,12 @@ interface CorvusMessage {
 
 **Request/Response** (`runtime.sendMessage`): Used for settings reads/writes, tool invocations, rule CRUD, and non-streaming AI requests.
 
-**Streaming** (`runtime.Port`): The UI opens a named port (`corvus-stream`). The background script sends incremental `content_delta` messages as AI tokens arrive, followed by a `stream_end` message. The port is disconnected by the UI when the popup closes.
+**Streaming** (`runtime.Port`): The UI opens the named port `corvus-stream`. The background script sends incremental typed chunks (`text`, `tool_call`, `done`, `error`). The port is disconnected by the UI when the popup closes or a terminal chunk arrives.
 
 ## Key Invariants
 
 - No external backend -- all AI calls are direct HTTPS from the background script
 - No localStorage/sessionStorage -- all persistence via `messenger.storage.local`
-- No JIT, eval(), or Function() -- Angular runs in AOT mode
+- No JIT, eval(), or Function()
 - Background script is the sole consumer of `messenger.*` APIs
 - UI never calls `messenger.messages.*` directly; it delegates via bridge service

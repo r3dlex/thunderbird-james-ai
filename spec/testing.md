@@ -15,14 +15,14 @@
 | Context | Framework | Config |
 |---------|-----------|--------|
 | Background | Jest + ts-jest | `jest.config.ts` |
-| UI | Framework-aware root entry point (`npm run test:ui`) | `src/ui/` toolchain config |
+| UI | Vue TypeScript typecheck + targeted Node tests | `src/ui/tsconfig.json`, feature-local test files |
 
 Run commands:
 
 ```
 npm test              # Jest for background (with coverage)
 npm run test:watch    # Jest watch mode
-npm run test:ui       # UI tests through the active toolchain
+npm run test:ui       # Vue UI typecheck
 ```
 
 ## Unit Tests
@@ -86,8 +86,8 @@ npm run test:ui       # UI tests through the active toolchain
 
 ### Popup Verification
 
-- Verify tab switching between Chat and Assistant
-- Verify settings view opens and closes
+- Verify `page` query values mount the correct Vue page component
+- Verify internal assistant/settings states open and close inside the shared shell
 - Verify provider card renders for each configured provider
 - Verify theme matches Thunderbird's current theme (light/dark)
 

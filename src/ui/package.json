@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@primeuix/themes": "^2.0.3",
+    "@types/dompurify": "^3.0.5",
+    "dompurify": "^3.3.3",
+    "marked": "^18.0.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.5.5",
     "vue": "^3.5.32"

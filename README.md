@@ -2,7 +2,7 @@
 
 AI-powered Thunderbird extension with multi-provider support. Brings contextual email chat, compose assistance, automated rules, and batch operations directly into the mail client.
 
-The popup UI is currently being migrated in staged waves from Angular 19 to Vue 3 + PrimeVue + Tailwind CSS + Vite. Phase 0/1 guardrails are documented in [docs/vue-rewrite-phase-01.md](docs/vue-rewrite-phase-01.md).
+The popup UI now runs on Vue 3 + PrimeVue + Tailwind CSS + Vite. Historical migration notes remain in [docs/vue-rewrite-phase-01.md](docs/vue-rewrite-phase-01.md).
 
 ## Features
 
@@ -72,7 +72,7 @@ Background Script (persistent)
   |
   |-- runtime.sendMessage() / runtime.Port (streaming)
   |
-Popup UI (currently Angular, staged rewrite in progress)
+Popup UI (Vue 3 + PrimeVue + Tailwind CSS + Vite)
   |-- Chat view (contextual email AI)
   |-- Assistant view (batch ops, rules, general chat)
   |-- Settings view (provider configuration)
@@ -84,7 +84,7 @@ Popup UI (currently Angular, staged rewrite in progress)
 | Directory | Contents |
 |-----------|----------|
 | `src/background/` | Background script: AI providers, tools, rules, storage |
-| `src/ui/` | Popup UI package: Angular 19 today, staged Vue 3 rewrite target |
+| `src/ui/` | Popup UI package: Vue 3 + PrimeVue + Tailwind CSS + Vite |
 | `src/types/` | Thunderbird MailExtension API type declarations |
 | `tools/pipeline_runner/` | Python CI/CD pipeline orchestrator |
 | `spec/` | Detailed specifications |
@@ -94,7 +94,7 @@ Popup UI (currently Angular, staged rewrite in progress)
 
 - [CLAUDE.md](CLAUDE.md) -- Project overview and agent guidelines
 - [AGENTS.md](AGENTS.md) -- Agent role definitions
-- [docs/vue-rewrite-phase-01.md](docs/vue-rewrite-phase-01.md) -- Approved Phase 0/1 rewrite guardrails and migration review notes
+- [docs/vue-rewrite-phase-01.md](docs/vue-rewrite-phase-01.md) -- Historical Phase 0/1 rewrite guardrails and migration review notes
 - [spec/](spec/) -- Detailed specifications (architecture, AI providers, tools, features, UI, security, testing, build)
 - [docs/adr/](docs/adr/) -- Architecture Decision Records
 
@@ -104,7 +104,7 @@ Popup UI (currently Angular, staged rewrite in progress)
 # Background script tests (Jest)
 npm test
 
-# Angular UI tests
+# UI typecheck / tests
 npm run test:ui
 
 # Python pipeline tests
@@ -116,7 +116,7 @@ cd tools/pipeline_runner && poetry run pytest
 | Component | Target |
 |-----------|--------|
 | Background script | 80% lines |
-| Angular UI | 70% lines |
+| Popup UI | 70% lines |
 | Rules engine | 90% lines |
 | AI providers | 80% lines |
 | Crypto module | 100% lines |
