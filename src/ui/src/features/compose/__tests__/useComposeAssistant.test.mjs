@@ -84,3 +84,14 @@ test("stream errors are surfaced in compose preview state", () => {
   assert.equal(harness.controller.hasPreview.value, true)
   assert.equal(harness.controller.isProcessing.value, false)
 })
+
+test("blank custom instructions do not start a compose stream", () => {
+  const harness = createHarness()
+  harness.controller.customInstruction.value = "   "
+
+  const started = harness.controller.applyCustomInstruction()
+
+  assert.equal(started, false)
+  assert.equal(harness.streamCalls.length, 0)
+  assert.equal(harness.controller.isProcessing.value, false)
+})
