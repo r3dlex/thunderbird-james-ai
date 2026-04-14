@@ -1,10 +1,17 @@
-import { bootstrapApplication } from "@angular/platform-browser"
-import { provideRouter } from "@angular/router"
-import { AppComponent } from "./app/app.component"
-import { routes } from "./app/app.routes"
+/// <reference types="vite/client" />
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideRouter(routes),
-  ],
-}).catch(err => console.error(err))
+import { createApp } from "vue"
+import PrimeVue from "primevue/config"
+import Aura from "@primeuix/themes/aura"
+import App from "./App.vue"
+import "./styles/main.css"
+
+const app = createApp(App)
+
+app.use(PrimeVue, {
+  theme: {
+    preset: Aura,
+  },
+})
+
+app.mount("#app")

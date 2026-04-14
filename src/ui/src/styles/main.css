@@ -1,0 +1,35 @@
+@import "primeicons/primeicons.css";
+@import "./thunderbird-theme.css";
+@import "tailwindcss";
+
+@plugin "tailwindcss-primeui";
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  min-width: 380px;
+  min-height: 500px;
+}
+
+code {
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--corvus-surface) 84%, transparent);
+  color: var(--corvus-text);
+  padding: 0.15rem 0.45rem;
+}
+
+.p-card {
+  background: color-mix(in srgb, var(--corvus-surface-raised) 40%, var(--corvus-bg));
+}
+
+.p-card .p-card-body {
+  gap: 0.875rem;
+}
