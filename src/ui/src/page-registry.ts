@@ -1,6 +1,9 @@
 import type { Component } from "vue"
 import type { CorvusPage } from "./composables/usePage"
+import { AssistantPage } from "./features/assistant"
 import ChatWorkspace from "./features/chat/ChatWorkspace.vue"
+import { ComposePage } from "./features/compose"
+import { SettingsPage } from "./features/settings"
 
 export interface CorvusPageRegistration {
   component?: Component
@@ -20,12 +23,15 @@ export const pageRegistry: Record<CorvusPage, CorvusPageRegistration> = {
     contracts: ["runtime.sendMessage", "corvus-stream", "getMessageContext"],
   },
   compose: {
+    component: ComposePage,
     contracts: ["runtime.sendMessage", "corvus-stream"],
   },
   assistant: {
+    component: AssistantPage,
     contracts: ["runtime.sendMessage"],
   },
   settings: {
+    component: SettingsPage,
     contracts: ["runtime.sendMessage"],
   },
 }
