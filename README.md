@@ -2,6 +2,8 @@
 
 AI-powered Thunderbird extension with multi-provider support. Brings contextual email chat, compose assistance, automated rules, and batch operations directly into the mail client.
 
+The popup UI is currently being migrated in staged waves from Angular 19 to Vue 3 + PrimeVue + Tailwind CSS + Vite. Phase 0/1 guardrails are documented in [docs/vue-rewrite-phase-01.md](docs/vue-rewrite-phase-01.md).
+
 ## Features
 
 - **Contextual Email Chat** -- Ask questions about the email you are viewing, draft replies, search for related messages
@@ -22,7 +24,7 @@ AI-powered Thunderbird extension with multi-provider support. Brings contextual 
 # Install Node dependencies
 npm install
 
-# Install Angular UI dependencies
+# Install UI dependencies
 cd src/ui && npm install && cd ../..
 
 # Development build (watches for changes)
@@ -70,7 +72,7 @@ Background Script (persistent)
   |
   |-- runtime.sendMessage() / runtime.Port (streaming)
   |
-Angular UI (popup panels)
+Popup UI (currently Angular, staged rewrite in progress)
   |-- Chat view (contextual email AI)
   |-- Assistant view (batch ops, rules, general chat)
   |-- Settings view (provider configuration)
@@ -82,7 +84,7 @@ Angular UI (popup panels)
 | Directory | Contents |
 |-----------|----------|
 | `src/background/` | Background script: AI providers, tools, rules, storage |
-| `src/ui/` | Angular 19 UI: views, services, shared components |
+| `src/ui/` | Popup UI package: Angular 19 today, staged Vue 3 rewrite target |
 | `src/types/` | Thunderbird MailExtension API type declarations |
 | `tools/pipeline_runner/` | Python CI/CD pipeline orchestrator |
 | `spec/` | Detailed specifications |
@@ -92,6 +94,7 @@ Angular UI (popup panels)
 
 - [CLAUDE.md](CLAUDE.md) -- Project overview and agent guidelines
 - [AGENTS.md](AGENTS.md) -- Agent role definitions
+- [docs/vue-rewrite-phase-01.md](docs/vue-rewrite-phase-01.md) -- Approved Phase 0/1 rewrite guardrails and migration review notes
 - [spec/](spec/) -- Detailed specifications (architecture, AI providers, tools, features, UI, security, testing, build)
 - [docs/adr/](docs/adr/) -- Architecture Decision Records
 

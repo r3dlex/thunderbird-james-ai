@@ -1,4 +1,4 @@
-"""Test pipeline: runs TypeScript and Python tests with coverage."""
+"""Test pipeline: runs TypeScript, UI, and Python tests with coverage."""
 
 from __future__ import annotations
 
@@ -17,14 +17,11 @@ def run() -> PipelineResult:
         run_command(["npx", "jest", "--coverage", "--ci", "--passWithNoTests"], cwd=root)
     )
 
-    # Angular UI tests (Karma) -- only if node_modules are installed
+    # UI tests via the root's framework-aware entry point -- only if UI deps are installed
     ui_dir = root / "src" / "ui"
     if (ui_dir / "node_modules").exists():
         result.steps.append(
-            run_command(
-                ["npx", "ng", "test", "--watch=false", "--code-coverage"],
-                cwd=ui_dir,
-            )
+            run_command(["npm", "run", "test:ui"], cwd=root)
         )
 
     # Python pipeline tests

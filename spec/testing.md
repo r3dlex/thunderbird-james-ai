@@ -5,7 +5,7 @@
 | Module | Target | Metric |
 |--------|--------|--------|
 | Background (overall) | 80% | Lines |
-| UI (Angular) | 70% | Lines |
+| UI | 70% | Lines |
 | Rules engine | 90% | Lines |
 | AI providers | 80% | Lines |
 | Crypto (`storage/crypto.ts`) | 100% | Lines |
@@ -15,14 +15,14 @@
 | Context | Framework | Config |
 |---------|-----------|--------|
 | Background | Jest + ts-jest | `jest.config.ts` |
-| UI | Angular CLI (Karma/Jasmine) | `src/ui/angular.json` |
+| UI | Framework-aware root entry point (`npm run test:ui`) | `src/ui/` toolchain config |
 
 Run commands:
 
 ```
 npm test              # Jest for background (with coverage)
 npm run test:watch    # Jest watch mode
-npm run test:ui       # Angular tests (single run, with coverage)
+npm run test:ui       # UI tests through the active toolchain
 ```
 
 ## Unit Tests

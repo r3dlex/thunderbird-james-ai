@@ -1,12 +1,14 @@
 # Build Pipeline
 
+Note: the UI is in a staged Angular -> Vue/Vite migration. The root package now treats the UI build as framework-aware infrastructure and keeps the final output contract stable at `dist/ui/index.html`.
+
 ## Dependencies
 
 Declared in `package.json` (all as `devDependencies`):
 
 | Package | Purpose |
 |---------|---------|
-| `@angular/cli` ^19.0 | Angular build toolchain |
+| `@angular/cli` ^19.0 | Legacy Angular build toolchain during the staged rewrite |
 | `@angular/core` ^19.0 | Angular framework |
 | `@angular/forms` ^19.0 | Reactive forms |
 | `@angular/router` ^19.0 | View routing |
@@ -18,7 +20,7 @@ Declared in `package.json` (all as `devDependencies`):
 | `webpack-cli` ^6.0 | Webpack CLI |
 | `ts-loader` ^9.5 | TypeScript loader for webpack |
 | `copy-webpack-plugin` ^12.0 | Copy static assets to dist |
-| `concurrently` ^9.0 | Parallel dev script runner |
+| `concurrently` ^9.0 | Parallel background/UI dev runner |
 | `jest` ^29.7 | Test runner |
 | `ts-jest` ^29.2 | Jest TypeScript support |
 | `@types/jest` ^29.5 | Jest type definitions |
@@ -70,11 +72,25 @@ File: `webpack.config.ts`
 
 Key points:
 - Single entry point at `src/background/index.ts`
-- Excludes `src/ui/` from ts-loader (Angular has its own build)
+- Excludes `src/ui/` from ts-loader (the UI keeps its own build toolchain)
 - Copies manifest, icons, and locales to `dist/`
 - Source maps enabled for development
 
-## Angular CLI Configuration (UI)
+## UI Build Configuration
+
+During the staged rewrite, the root build scripts support either:
+
+- a `src/ui` package `build` / `dev` / `test` / `lint` script surface
+- a Vite config discovered inside `src/ui`
+- the legacy Angular CLI fallback while parity work is still in flight
+
+The runtime output contract does not change:
+
+- UI assets end up under `dist/ui/`
+- popup entry file remains `dist/ui/index.html`
+- background webpack output stays in `dist/`
+
+## Legacy Angular CLI Configuration
 
 Located at `src/ui/angular.json`. Key settings:
 
@@ -89,22 +105,30 @@ Located at `src/ui/angular.json`. Key settings:
 
 | Script | Command | Purpose |
 |--------|---------|---------|
-| `dev` | `concurrently "webpack --watch --mode=development" "cd src/ui && npx ng build --watch --configuration=development"` | Development with watch |
-| `build` | `webpack --mode=production && cd src/ui && npx ng build --configuration=production && cd ../.. && node scripts/merge-dist.mjs` | Full production build |
+| `dev` | `concurrently "npm run dev:background" "npm run dev:ui"` | Development with background/UI watch lanes |
+| `dev:background` | `webpack --watch --mode=development` | Background-only watch |
+| `dev:ui` | framework-aware UI dev entry point | UI dev/watch entry point |
+| `build` | `npm run build:background && npm run build:ui && npm run merge:ui` | Full production build |
 | `build:background` | `webpack --mode=production` | Background only |
-| `build:ui` | `cd src/ui && npx ng build --configuration=production` | UI only |
+| `build:ui` | framework-aware UI build entry point | UI only |
+| `merge:ui` | `node scripts/merge-dist.mjs` | Copy the built UI into `dist/ui/` |
 | `package` | `npm run build && cd dist && zip -r ../corvus.xpi * -x '*.map'` | Build + XPI |
-| `lint` | `eslint src/ --ext .ts` | Lint all TypeScript |
-| `lint:fix` | `eslint src/ --ext .ts --fix` | Lint with auto-fix |
-| `test` | `jest --coverage` | Background tests with coverage |
+| `lint` | `npm run lint:background` | Background lint default |
+| `lint:background` | `eslint src/ --ext .ts` | Lint background TypeScript |
+| `lint:fix` | `npm run lint:background -- --fix` | Background lint with auto-fix |
+| `lint:ui` | framework-aware UI lint entry point | Lint UI files |
+| `test` | `npm run test:background` | Background tests default |
+| `test:background` | `jest --coverage` | Background tests with coverage |
 | `test:watch` | `jest --watch` | Background tests in watch mode |
-| `test:ui` | `cd src/ui && npx ng test --watch=false --code-coverage` | Angular tests |
+| `test:ui` | framework-aware UI test entry point | UI tests |
 
 ## Post-Build Merge
 
 Script: `scripts/merge-dist.mjs`
 
-Copies the Angular build output from `src/ui/dist/corvus-ui/browser/` into `dist/ui/`. This produces the final extension layout:
+Copies the active UI build output into `dist/ui/` without deleting background assets from `dist/`. The script can take an explicit source directory via `CORVUS_UI_DIST_DIR`, otherwise it auto-detects a directory containing `index.html` under `src/ui/dist/`.
+
+This produces the final extension layout:
 
 ```
 dist/
@@ -114,10 +138,8 @@ dist/
   icons/                  # Copied by webpack
   _locales/               # Copied by webpack
   ui/
-    index.html            # Angular output
-    main.js               # Angular bundle
-    polyfills.js
-    styles.css
+    index.html            # UI entrypoint (Angular or Vite)
+    ...                   # UI assets
 ```
 
 ## XPI Packaging
@@ -134,9 +156,9 @@ The XPI can be installed in Thunderbird via Add-ons Manager > Install Add-on Fro
 
 ```
 1. webpack (background.js + static assets -> dist/)
-2. ng build (Angular -> src/ui/dist/corvus-ui/browser/)
-3. merge-dist.mjs (copy Angular output -> dist/ui/)
+2. framework-aware UI build (`src/ui` package script, Vite, or legacy Angular fallback)
+3. merge-dist.mjs (copy UI output -> dist/ui/)
 4. zip (dist/ -> corvus.xpi)
 ```
 
-Steps 1 and 2 are independent and run sequentially in `npm run build`. The `dev` script runs them in parallel with watch mode via `concurrently`.
+Steps 1 and 2 are independent and run sequentially in `npm run build`. The `dev` script runs them in parallel with separate background and UI lanes via `concurrently`.

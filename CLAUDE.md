@@ -1,12 +1,12 @@
 # Corvus — AI-Powered Thunderbird Extension
 
-Thunderbird WebExtension (Manifest V3) bringing multi-provider AI directly into the mail client. No external backend. Pure TypeScript, Angular, and the Thunderbird MailExtension API.
+Thunderbird WebExtension (Manifest V3) bringing multi-provider AI directly into the mail client. No external backend. Pure TypeScript with a Thunderbird MailExtension UI that is currently being migrated in staged waves from Angular 19 to Vue 3 + PrimeVue + Tailwind CSS + Vite.
 
 ## Quick Reference
 
 - **Target**: Thunderbird 148+, Manifest V3
 - **Language**: TypeScript (strict mode), Python 3.12+ (tooling only)
-- **UI**: Angular 19+ with AOT compilation
+- **UI**: Angular 19 today, with an approved staged rewrite to Vue 3 + PrimeVue + Tailwind CSS + Vite
 - **Build**: `npm run build` (webpack + Angular CLI)
 - **Test**: `npm test` (Jest for background), `npm run test:ui` (Angular)
 - **Package**: `npm run package` (produces corvus.xpi)
@@ -26,6 +26,10 @@ Thunderbird WebExtension (Manifest V3) bringing multi-provider AI directly into 
 
 See [AGENTS.md](AGENTS.md) for agent role definitions and task delegation patterns.
 
+## Active Rewrite Guidance
+
+Phase 0/1 rewrite constraints and source-backed migration guardrails live in [docs/vue-rewrite-phase-01.md](docs/vue-rewrite-phase-01.md). Use that document when touching the popup build, `src/ui`, `manifest.json`, or `scripts/merge-dist.mjs`.
+
 ## Specifications
 
 Detailed specs live in `spec/` using progressive disclosure:
@@ -40,6 +44,8 @@ Detailed specs live in `spec/` using progressive disclosure:
 | [spec/security.md](spec/security.md) | Encryption, privacy, API key management |
 | [spec/testing.md](spec/testing.md) | Testing strategy, coverage targets |
 | [spec/build.md](spec/build.md) | Build pipeline, webpack, Angular CLI |
+
+During the migration, prefer the rewrite guardrail doc over older Angular-only wording in detailed specs until those specs are updated alongside implementation.
 
 ## Architecture Decisions
 

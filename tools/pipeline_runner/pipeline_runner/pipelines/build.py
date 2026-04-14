@@ -1,4 +1,4 @@
-"""Build pipeline: compiles background script and Angular UI."""
+"""Build pipeline: compiles background script and the active UI toolchain."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ def run() -> PipelineResult:
     if not result.steps[-1].success:
         return result
 
-    # Install Angular UI dependencies
+    # Install UI dependencies
     ui_dir = root / "src" / "ui"
     if (ui_dir / "package.json").exists():
         result.steps.append(
@@ -28,23 +28,23 @@ def run() -> PipelineResult:
         if not result.steps[-1].success:
             return result
 
-    # Build background script (webpack)
+    # Build background script
     result.steps.append(
-        run_command(["npx", "webpack", "--mode=production"], cwd=root)
+        run_command(["npm", "run", "build:background"], cwd=root)
     )
+    if not result.steps[-1].success:
+        return result
 
-    # Build Angular UI
-    if (ui_dir / "angular.json").exists():
-        result.steps.append(
-            run_command(
-                ["npx", "ng", "build", "--configuration=production"],
-                cwd=ui_dir,
-            )
-        )
-
-    # Merge dist
+    # Build UI via the root's framework-aware entry point
     result.steps.append(
-        run_command(["node", "scripts/merge-dist.mjs"], cwd=root)
+        run_command(["npm", "run", "build:ui"], cwd=root)
+    )
+    if not result.steps[-1].success:
+        return result
+
+    # Merge UI into dist/ui without touching background artifacts
+    result.steps.append(
+        run_command(["npm", "run", "merge:ui"], cwd=root)
     )
 
     return result

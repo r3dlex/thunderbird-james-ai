@@ -1,4 +1,4 @@
-"""Lint pipeline: runs TypeScript and Python linters."""
+"""Lint pipeline: runs background, UI, and Python linters."""
 
 from __future__ import annotations
 
@@ -12,10 +12,19 @@ def run() -> PipelineResult:
     root = get_project_root()
     result = PipelineResult(pipeline_name="lint")
 
-    # TypeScript / ESLint
+    # Background TypeScript / ESLint
     result.steps.append(
-        run_command(["npx", "eslint", "src/", "--ext", ".ts"], cwd=root)
+        run_command(["npm", "run", "lint:background"], cwd=root)
     )
+
+    ui_dir = root / "src" / "ui"
+    if (ui_dir / "package.json").exists():
+        result.steps.append(
+            run_command(["npm", "run", "lint:ui"], cwd=root)
+        )
+
+    if any(not step.success for step in result.steps):
+        return result
 
     # Python / Ruff
     tools_dir = root / "tools" / "pipeline_runner"
