@@ -41,6 +41,10 @@ venv/
 .env.local
 .env.*.local
 
+# OMC state
+.omc/
+.omx/
+
 # IDE
 .idea/
 .vscode/

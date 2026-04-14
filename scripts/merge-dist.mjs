@@ -1,7 +1,7 @@
 /**
  * Post-build script: copies the active UI build output into dist/ui/
- * without touching the rest of dist/. Supports staged Angular -> Vite
- * migration by discovering the final UI artifact directory.
+ * without touching the rest of dist/. Discovers the final UI artifact
+ * directory and keeps the extension output contract stable.
  */
 
 import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, statSync } from "fs"

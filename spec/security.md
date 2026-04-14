@@ -72,7 +72,7 @@ See `src/background/storage/crypto.ts` for the full implementation. Key function
 ## Content Security
 
 - No `eval()`, `Function()`, or dynamic code execution
-- Angular runs in AOT mode only
+- UI bundles are precompiled before packaging
 - Markdown rendering uses DOMPurify to sanitize all AI-generated HTML
 - No inline scripts in popup HTML
 
