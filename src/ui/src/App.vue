@@ -4,6 +4,7 @@ import Button from "primevue/button"
 import Card from "primevue/card"
 import Tag from "primevue/tag"
 import { directPopupPages, internalPages, type CorvusPage, usePage } from "./composables/usePage"
+import { pageRegistry } from "./page-registry"
 
 const pageLabels: Record<CorvusPage, string> = {
   chat: "Chat",
@@ -25,17 +26,8 @@ const internalEntries = internalPages.map(key => ({
   label: pageLabels[key],
 }))
 
-const activeContractSummary = computed(() => {
-  if (page.value === "compose") {
-    return ["runtime.sendMessage", "corvus-stream"]
-  }
-
-  if (page.value === "assistant" || page.value === "settings") {
-    return ["runtime.sendMessage"]
-  }
-
-  return ["runtime.sendMessage", "corvus-stream", "getMessageContext"]
-})
+const activePageRegistration = computed(() => pageRegistry[page.value])
+const activeContractSummary = computed(() => activePageRegistration.value.contracts)
 
 function goToPage(nextPage: CorvusPage): void {
   setPage(nextPage)
@@ -109,11 +101,6 @@ function goToPage(nextPage: CorvusPage): void {
         </template>
         <template #content>
           <div class="space-y-4 text-sm leading-6 text-[var(--corvus-text-secondary)]">
-            <p>
-              This shell preserves popup semantics while root build orchestration migrates away from Angular.
-              Feature pages remain untouched for the next wave.
-            </p>
-
             <div>
               <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--corvus-text-secondary)]">
                 Preserved contracts
@@ -128,7 +115,16 @@ function goToPage(nextPage: CorvusPage): void {
               </div>
             </div>
 
-            <div class="rounded-xl border border-dashed border-[var(--corvus-border)] bg-[var(--corvus-surface)]/70 p-3">
+            <component
+              :is="activePageRegistration.component"
+              v-if="activePageRegistration.component"
+              v-bind="activePageRegistration.props"
+            />
+
+            <div
+              v-else
+              class="rounded-xl border border-dashed border-[var(--corvus-border)] bg-[var(--corvus-surface)]/70 p-3"
+            >
               <p class="font-medium text-[var(--corvus-text)]">Current state</p>
               <p class="mt-1">{{ pageMeta.body }}</p>
             </div>
