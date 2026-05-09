@@ -13,6 +13,7 @@ This file defines agent personas and task delegation patterns for AI-assisted de
 - Rules engine (matching, execution, scheduling)
 - Storage layer (encrypted settings, cache, rules persistence)
 - Batch operations processor
+- Individual tool modules in `src/background/ai/tools/` (one file per tool)
 
 **Key constraints**:
 - All provider communication via raw fetch() - no SDK imports

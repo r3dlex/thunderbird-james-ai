@@ -25,7 +25,7 @@ Declared in `package.json` (all as `devDependencies`):
 
 ## Webpack Configuration (Background)
 
-File: `webpack.config.ts`
+File: `webpack.config.mjs`
 
 ```typescript
 {

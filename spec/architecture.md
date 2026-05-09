@@ -58,6 +58,7 @@ src/
     index.ts              # Entry point, message listener registration
     ai/
       router.ts           # Provider selection, tool execution loop
+      types.ts            # Shared AI type definitions
       providers/
         anthropic.ts      # Anthropic adapter
         openai.ts         # OpenAI adapter
@@ -65,22 +66,32 @@ src/
         minimax.ts        # MiniMax adapter (Anthropic-compatible)
         base.ts           # AIProvider abstract class
       tools/
-        definitions.ts    # Tool schemas for function calling
-        executor.ts       # Tool dispatch to messenger.* APIs
+        registry.ts       # Tool schema definitions and registration
+        email-search.ts   # search_emails tool
+        email-move.ts     # move_emails tool
+        email-draft.ts    # create_draft tool
+        email-flag.ts     # tag_emails / flag tool
+        folder-list.ts    # list_folders tool
+        get-email-content.ts  # get_email_content tool
+        get-thread.ts     # get_thread tool
     context/
-      mail-context.ts     # Read displayed message, build thread context
+      message-reader.ts   # Read displayed message, build mail context
+      attachment-reader.ts  # Attachment extraction helpers
       thread-builder.ts   # Chronological thread assembly
     rules/
       engine.ts           # Rule evaluation and execution
+      executor.ts         # Rule action dispatch
       matcher.ts          # Condition matching logic
       scheduler.ts        # Alarm-based periodic evaluation
       types.ts            # CorvusRule, CorvusCondition, CorvusAction
     batch/
       processor.ts        # Batch operation queue and confirmation
+      operations.ts       # Batch operation type definitions
     storage/
       crypto.ts           # AES-GCM encryption, PBKDF2 key derivation
       settings.ts         # Provider configs, model selection
       cache.ts            # Conversation and usage caching
+      rules-store.ts      # Rules persistence
   ui/
     src/
       features/

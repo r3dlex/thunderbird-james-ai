@@ -42,7 +42,8 @@ venv/
 .env.*.local
 
 # OMC state
-.omc/
+.omc/*
+!.omc/plans/
 .omx/
 
 # IDE
